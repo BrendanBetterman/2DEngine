@@ -15,7 +15,8 @@ public class Main implements Runnable {
     public Input input;
     public final int WIDTH = 1280, HEIGHT = 760;
 
-    public Canvas canvas;
+    private Canvas canvas;
+    private GameLoop gameLoop;
     
     public void start(){
         game = new Thread(this,"game");
@@ -33,7 +34,7 @@ public class Main implements Runnable {
             input = Input.getInstance();
         }catch(Exception e){System.out.println(e);}
         canvas = Canvas.getInstance();
-       
+        gameLoop = new GameLoop();
     }
     public void run(){
         init();
@@ -51,9 +52,11 @@ public class Main implements Runnable {
         if(input.isButtonDown(GLFW.GLFW_MOUSE_BUTTON_LEFT)) {
             System.out.println("X:"+input.getScrollX()+" Y:"+input.getScrollY());
         }
+
     }
     private void render(){
-        canvas.drawQuad(10,10,100,100);
+        
+        canvas.drawMatrix(gameLoop.draw(), 10);
         window.swapBuffers();
         
         //System.out.println("render Game");

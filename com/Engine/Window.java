@@ -78,6 +78,8 @@ public class Window{
 		glOrtho(0, width, 0, height, 1, 0);
         glMatrixMode(GL_MODELVIEW);
         createCallbacks();
+        
+        glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
 
         GLFW.glfwShowWindow(window);
         if(frameCap){
@@ -88,7 +90,7 @@ public class Window{
         canvas = Canvas.getInstance();
         canvas.setBackGroundColor(new colorRGB(0,0,0));
         time = System.currentTimeMillis();
-
+        
         
     }
     private void createCallbacks(){
@@ -128,7 +130,7 @@ public class Window{
                 GLFW.glfwSetWindowMonitor(window, GLFW.glfwGetPrimaryMonitor(), 0, 0, width, height, 0);
             }
         }
-        
+        glEnable(GL_BLEND);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         
 
@@ -146,6 +148,7 @@ public class Window{
     public void swapBuffers(){
         
         GLFW.glfwSwapBuffers(window);
+        
         colorRGB background = canvas.getBackGroundColor();
         float[] backgroundRGB = background.colorf();
         GL11.glClearColor(backgroundRGB[0], backgroundRGB[1], backgroundRGB[2], 1.0f);
